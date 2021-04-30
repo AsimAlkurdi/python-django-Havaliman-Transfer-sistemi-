@@ -3,7 +3,11 @@ from django.shortcuts import render
 
 
 # Create your views here.
+from home.models import Setting
+
+
 def index(request):
-    latest_question_list = "asim alkurdi"
-    context = {'latest_question_list': latest_question_list}
+    setting = Setting.objects.get(pk=1)
+
+    context = {'setting': setting }
     return render(request, 'index.html', context)

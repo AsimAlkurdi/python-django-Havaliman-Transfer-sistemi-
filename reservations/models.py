@@ -6,7 +6,7 @@ from django.db import models
 
 class Reservation(models.Model):
     STATUS = (
-
+        ('New', 'New'),
         ('Accepted', 'Accepted'),
         ('Canceled', 'Canceled'),
     )
