@@ -23,10 +23,12 @@ from home import views
 urlpatterns = [
     path('', include('home.urls')),
     path('home/', include('home.urls')),
-    path('aboutus/', views.aboutus, name='aboutus'),
+    path('contact', views.contact, name='contact'),
+    path('aboutus', views.aboutus, name='aboutus'),
+    path('references', views.references, name='references'),
     path('reservations/', include('reservations.urls')),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
-if settings.DEBUG: # new
+if settings.DEBUG:  # new
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,9 +1,11 @@
 {% extends "homebase.html" %}
 
+{% block title %} Contact-{{ setting.company }}{% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description}} {% endblock %}
 {% block head %}
-<link rel='shortcut icon' type='image/x-icon' href='#' />
+<link rel='shortcut icon' type='image/x-icon' href='{{setting.icon.url}}' />
 {% endblock %}
-
 {% block body %}
 <section id="page-title-area" class="section-padding overlay">
         <div class="container">
@@ -28,14 +30,17 @@
                         <h2>Contact Form</h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                     </div>
-
-                          <div class="alert alert" role="alert">
-
+                    {% if messages %}
+                    {% for message in messages %}
+                          <div class="alert alert-{{message.tags}}" role="alert">
+                               {{ message }}
                            </div>
-
+                    {% endfor %}
+                {% endif %}
                     <div class="contact-form">
                         <form method="post" action="">
-
+                            {% csrf_token %}
+                            {{ form.as_p }}
                         <div class="input-submit">
                                 <button type="submit">Submit Message</button>
                             </div>
@@ -47,7 +52,7 @@
                         <h2>Contact Information</h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                     </div>
-
+                    {{ setting.contact|safe }}
                 </div>
             </div>
         </div>
