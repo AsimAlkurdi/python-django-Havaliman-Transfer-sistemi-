@@ -27,6 +27,7 @@ urlpatterns = [
     path('aboutus', views.aboutus, name='aboutus'),
     path('references', views.references, name='references'),
     path('reservations/', include('reservations.urls')),
+    path('transfer/',  include('transfer.urls')),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
