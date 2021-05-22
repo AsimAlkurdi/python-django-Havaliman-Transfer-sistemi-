@@ -42,9 +42,9 @@
             <div class="container">
                 <div class="row">
                     <!--== Logo Start ==-->
-                    <div class="col-lg-4">
-                        <a href="index3.html" class="logo">
-                            <img src="static/img/logo.png" alt="JSOFT">
+                   <div class="col-lg-4">
+                        <a href="/" class="logo">
+                            <img src="{% static 'img/logo.png' %}" alt="JSOFT">
                         </a>
                     </div>
                     <!--== Logo End ==-->
@@ -54,17 +54,31 @@
                         <nav class="mainmenu alignright">
                             <ul>
                                 <li><a href="\">Category</a>
+                                    <ul>
+                                        {% load mptt_tags %}
 
+                                                {% recursetree category %}
+                                                <li><a href="/category/{{node.id}}/{{ node.slug}}">{{ node.title }}{% if not node.is_leaf_node %} <i class="ti-angle-right"></i>{% endif %}</a>
+
+                                                    {% if not node.is_leaf_node %}
+                                                    <ul>
+                                                        <li><a href="#">{{ children }}</a></li>
+
+                                                    </ul>
+                                                    {% endif %}
+                                                </li>
+                                                {% endrecursetree %}
+                                    </ul>
                                 </li>
                                 <li><a href="/">Home</a></li>
                                 <li><a href="/aboutus">About</a></li>
                                 <li><a href="/references">Reference</a></li>
-                                <li><a href="/sss">FAQ</a></li>
+                                <li><a href="#">FAQ</a></li>
                                 <li><a href="/contact">Contact</a></li>
 
 
 
-                                <li><a href="/signup/">Sign Up </a></li>
+                                <li><a href="#">Sign Up </a></li>
 
                             </ul>
                         </nav>
