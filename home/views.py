@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from home.models import Setting, ContactformMessage, ContactForm
-from transfer.models import Category, Transfer
+from transfer.models import Category, Transfer, Images
 
 
 def index(request):
@@ -14,6 +14,7 @@ def index(request):
     lasttransfer = Transfer.objects.all().order_by('-id')[:4]
     context = {'setting': setting, 'category': category, 'daytransfer': daytransfer, 'lasttransfer': lasttransfer, }
     return render(request, 'index.html', context)
+
 
 def aboutus(request):
     setting = Setting.objects.get(pk=1)
@@ -51,11 +52,19 @@ def contact(request):
     return render(request, 'contact.html', context)
 
 
-def category_transfer(request,id,slug):
+def category_transfer(request, id, slug):
     categorydata = Category.objects.get(pk=id)
     category = Category.objects.all()
-    transfer = Transfer.objects.filter(category_id=id,status='True')
-    context ={'transfer': transfer,
-              'category': category,
-              'categorydata': categorydata}
-    return render(request,'transfer.html',context)
+    transfer = Transfer.objects.filter(category_id=id, status='True')
+    context = {'transfer': transfer,
+               'category': category,
+               'categorydata': categorydata}
+    return render(request, 'transfer.html', context)
+
+
+def transfer_detail(request, id, slug):
+    category = Category.objects.all()
+    images = Images.objects.filter(transfer_id=id)
+    transfer = Transfer.objects.get(pk=id)
+    context = {'category': category, 'transfer': transfer, 'images': images}
+    return render(request, 'transfer_detail.html', context)

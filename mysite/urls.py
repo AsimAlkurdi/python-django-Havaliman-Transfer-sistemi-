@@ -28,7 +28,8 @@ urlpatterns = [
     path('references', views.references, name='references'),
     path('reservations', include('reservations.urls')),
     path('transfer',  include('transfer.urls')),
-    path('category/<int:id>/<slug:slug>/', views.category_transfer, name='category_transfer'),
+    path('category/<int:id>/<slug:slug>', views.category_transfer, name='category_transfer'),
+    path('transfer/<int:id>/<slug:slug>', views.transfer_detail, name='transfer_detail'),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
