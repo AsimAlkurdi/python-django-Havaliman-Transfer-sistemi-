@@ -43,14 +43,73 @@
                     <div class="car-details-info">
                         <h4>Additional Info</h4>
                         <p>{{ transfer.detail | safe}}</p>
+                        {%if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        <div class="review-area">
+                            <h3>Write Your Comment And Review</h3>
+                            <div class="review-area">
+                                <div class="review-form">
+                                    <form action="/transfer/addcomment/{{ transfer.id }}" method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="name-input">
+                                                    <input type="text" name="subject" placeholder="subject" id="id_subject">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="message-input">
+                                            <textarea name="comment" id="id_comment" cols="30" rows="5" placeholder="Write Your Feedback Here!"></textarea>
+                                        </div>
+                                        {% if user.id is not none %}
+                                        <div class="input-submit">
+                                            <button type="submit">Submit</button>
+                                            <button type="reset">Clear</button>
+                                        </div>
+                                        {% else %}
+                                        Please <a href="/login">  Login </a>To Adding Comment
+                                        {%  endif %}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="single-sidebar">
+                        <h3>Comments</h3>
 
+                        <div class="sidebar-body">
+                            <ul class="recent-tips">
+                                {% for rs in comments %}
+                                <li class="single-recent-tips">
+                                    <div class="recent-tip-thum">
+                                        <a href="#"><img src="{{ profile.image.url }}" alt="JSOFT" style="border-radius: 50%;width:40px"></a>
                                     </div>
-            </div></div>
+                                    <div class="recent-tip-body">
+                                        <h5>{{ rs.subject }}</h5>
+                                        <h4><a href="#">{{ rs.comment }}</a></h4>
+                                        <span class="date">{{ rs.create_at}}</span> {{rs.user.first_name}}
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
             <!-- Car List Content End -->
 
             <!-- Sidebar Area Start -->
             <div class="col-lg-4">
                 <div class="sidebar-content-wrap m-t-50">
+                    <!-- Single Sidebar Start -->
+
+                    <!-- Single Sidebar End -->
 
 
                     <!-- Single Sidebar Start -->
