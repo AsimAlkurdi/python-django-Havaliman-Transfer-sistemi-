@@ -23,15 +23,20 @@ from home import views
 urlpatterns = [
     path('', include('home.urls')),
     path('home/', include('home.urls')),
-    path('contact', views.contact, name='contact'),
-    path('aboutus', views.aboutus, name='aboutus'),
-    path('references', views.references, name='references'),
-    path('reservations', include('reservations.urls')),
-    path('transfer',  include('transfer.urls')),
-    path('category/<int:id>/<slug:slug>', views.category_transfer, name='category_transfer'),
-    path('transfer/<int:id>/<slug:slug>', views.transfer_detail, name='transfer_detail'),
+    path('transfer/', include('transfer.urls')),
+    path('user/', include('user.urls')),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+
+    path('contact/', views.contact, name='contact'),
+    path('aboutus/', views.aboutus, name='aboutus'),
+    path('references/', views.references, name='references'),
+    path('reservations/', include('reservations.urls')),
+    path('category/<int:id>/<slug:slug>/', views.category_transfer, name='category_transfer'),
+    path('transfer/<int:id>/<slug:slug>/', views.transfer_detail, name='transfer_detail'),
+    path('logout/', views.logout_view, name='logout_view'),
+    path('login/', views.login_view, name='login_view'),
+    path('signup/', views.signup_view, name='signup_view'),
 ]
 if settings.DEBUG:  # new
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

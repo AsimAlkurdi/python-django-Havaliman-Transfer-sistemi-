@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'transfer.apps.TransferConfig',
     'reservations.apps.ReservationsConfig',
     'home.apps.HomeConfig',
+    'user.apps.UserConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -58,7 +58,6 @@ class Transfer(models.Model):
     keywords = models.CharField(max_length=255)
     image = models.ImageField(blank=True, upload_to='images/')
     price = models.IntegerField()
-    slug = models.SlugField(null=False,unique=True)
     detail = RichTextUploadingField()
     status = models.CharField(max_length=10, choices=STATUS, default='New')
     create_at = models.DateTimeField(auto_now_add=True)

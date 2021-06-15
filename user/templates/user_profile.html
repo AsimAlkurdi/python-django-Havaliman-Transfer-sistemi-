@@ -1,0 +1,92 @@
+{% extends "homebase.html" %}
+
+{% block title %} User Profile{{ profile.user_name }}{% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description}} {% endblock %}
+{% block head %}
+<link rel='shortcut icon' type='image/x-icon' href='{{setting.icon.url}}' />
+{% endblock %}
+{% block body %}
+<section id="page-title-area" class="section-padding overlay">
+        <div class="container">
+            <div class="row">
+                <!-- Page Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+                        <h2>User Profile</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                </div>
+                <!-- Page Title End -->
+            </div>
+        </div>
+    </section>
+<!--== About Page Content Start ==-->
+    <section id="car-list-area" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Car List Content Start -->
+                <div class="col-lg-8">
+                    <div class="car-details-content">
+                        <h4>User Profile</h4>
+                        <div class="car-preview-crousel">
+                            <div class="single-car-preview">
+                                <img src="assets/img/car/car-5.jpg" alt="JSOFT">
+                            </div>
+                        </div>
+                        {%if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        <div class="car-details-info">
+                            <table cellpadding="5" width="700">
+                        <tr>
+                            <th style="border-bottom: 1px solid #ddd;">
+                                <div class="row">
+                                <div class="about-btn"><a href="/user/update">Update Profile</a></div>
+                                <div class="about-btn"><a href="/user/password">Change Password</a></div>
+                                </div>
+                            </th>
+                            <td style="border-bottom: 1px solid #ddd;"><img width=150 height=150; src="{{ profile.image.url }}"></td>
+                        </tr>
+                        <tr>
+                            <th style="border-bottom: 1px solid #ddd;">Name Surname</th>
+                            <td style="border-bottom: 1px solid #ddd;">{{ profile.user_name }}</td>
+                        </tr>
+                        <tr>
+                            <th style="border-bottom: 1px solid #ddd;">Email</th>
+                            <td style="border-bottom: 1px solid #ddd;">{{ profile.user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th style="border-bottom: 1px solid #ddd;">Phone</th>
+                            <td style="border-bottom: 1px solid #ddd;">{{ profile.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th style="border-bottom: 1px solid #ddd;">Address</th>
+                            <td style="border-bottom: 1px solid #ddd;">{{ profile.address }}</td>
+                        </tr>
+                        <tr>
+                            <th style="border-bottom: 1px solid #ddd;">City</th>
+                            <td style="border-bottom: 1px solid #ddd;">{{ profile.city }}</td>
+                        </tr>
+                        <tr>
+                            <th style="border-bottom: 1px solid #ddd;">Country</th>
+                            <td style="border-bottom: 1px solid #ddd;">{{ profile.country }}</td>
+                        </tr>
+                    </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Car List Content End -->
+
+
+            </div>
+        </div>
+    </section>
+    <!--== Car List Area End ==-->
+    <!--== About Page Content End ==-->
+{% endblock %}
