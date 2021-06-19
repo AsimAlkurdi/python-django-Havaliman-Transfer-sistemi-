@@ -1,7 +1,10 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-
 # Create your models here.
+from django.forms import ModelForm
+
+from transfer.models import Transfer
 
 
 class Reservation(models.Model):
@@ -11,7 +14,7 @@ class Reservation(models.Model):
         ('Canceled', 'Canceled'),
     )
 
-    title = models.CharField(max_length=30)
+    user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     first_name = models.CharField(max_length=15)
     last_name = models.CharField(max_length=15)
     phone = models.CharField(max_length=20)
@@ -24,7 +27,7 @@ class Reservation(models.Model):
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.user.first_name
 
 
 class reservTransfer(models.Model):
@@ -34,11 +37,26 @@ class reservTransfer(models.Model):
         ('Canceled', 'Canceled'),
     )
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
-    title = models.CharField(max_length=30)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    transfer = models.ForeignKey(Transfer, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS, default='New')
     price = models.IntegerField()
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.transfer.title
+
+
+class ReservCart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    transfer = models.ForeignKey(Transfer, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.transfer
+
+
+class ReservationForm(ModelForm):
+    class Meta:
+        model = Reservation
+        fields = ['first_name', 'last_name', 'address', 'pickup', 'phone', 'city', ]

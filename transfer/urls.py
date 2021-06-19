@@ -1,9 +1,12 @@
-from django.urls import path
 
-from . import views
+from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path, include
+
+from home import views
 
 urlpatterns = [
-    # ex: /home/
+
     path('', views.index, name='index'),
-    path('addcomment/<int:id>', views.addcomment, name='addcomment')
 ]

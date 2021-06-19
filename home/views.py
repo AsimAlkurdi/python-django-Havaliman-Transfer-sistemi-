@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -28,13 +28,12 @@ def aboutus(request):
 def references(request):
     setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
-    context = {'setting': setting
-        , 'category': category}
+    context = {'setting': setting, 'category': category}
     return render(request, 'references.html', context)
 
 
 def contact(request):
-    if request.method == 'POST':
+    if request.method == 'POST':  # form post edildiyse
         form = ContactForm(request.POST)
         if form.is_valid():
             data = ContactformMessage()
@@ -50,7 +49,7 @@ def contact(request):
     category = Category.objects.all()
     form = ContactForm()
     context = {'setting': setting, 'form': form,
-               'category': category, }
+               'category': category}
     return render(request, 'contact.html', context)
 
 
@@ -69,8 +68,7 @@ def transfer_detail(request, id, slug):
     images = Images.objects.filter(transfer_id=id)
     transfer = Transfer.objects.get(pk=id)
     comments = Comment.objects.filter(transfer_id=id, status='True')
-
-    context = {'category': category, 'transfer': transfer, 'comments': comments, 'images': images}
+    context = {'category': category, 'transfer': transfer, 'images': images, 'comments': comments}
     return render(request, 'transfer_detail.html', context)
 
 

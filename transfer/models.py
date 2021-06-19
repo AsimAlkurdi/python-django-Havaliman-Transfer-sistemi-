@@ -1,14 +1,13 @@
 from ckeditor_uploader.fields import RichTextUploadingField
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 # Create your models here.
-from django.urls import reverse
-
 from django.forms import ModelForm
 from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
+from django.urls import reverse
 
 
 class Category(MPTTModel):
@@ -39,32 +38,48 @@ class Category(MPTTModel):
 
     def image_tag(self):
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+
     image_tag.short_description = 'Image'
-
-
-def get_absolute_url(self):
-    return reverse('category_detail', kwargs={'slug': self.slug})
 
 
 class Transfer(models.Model):
     STATUS = (
-        ('New', 'New'),
-        ('Accepted', 'Accepted'),
-        ('Canceled', 'Canceled'),
+        ('True', 'True'),
+        ('False', 'False'),
+    )
+    LOCATION = (
+        ('Address', 'Address'),
+        ('Hotel', 'Hotel'),
+    )
+    BAGGAGE = (
+        ('YES', 'YES'),
+        ('NO', 'NO')
     )
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    title = models.CharField(max_length=30)
-    description = models.CharField(max_length=255)
+    title = models.CharField(max_length=150)
     keywords = models.CharField(max_length=255)
-    image = models.ImageField(blank=True, upload_to='images/')
-    price = models.IntegerField()
+    description = models.CharField(max_length=255)
+    image = models.ImageField(null=True, upload_to='images/', default='images/default.jpg')
+    airport = models.CharField(max_length=50)
+    seat = models.IntegerField()
+    shuttle = models.CharField(max_length=50)
+    price = models.FloatField()
     detail = RichTextUploadingField()
-    status = models.CharField(max_length=10, choices=STATUS, default='New')
+    slug = models.SlugField(null=False, unique=True)
+    status = models.CharField(max_length=30, choices=STATUS)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
+    class MPTTMeta:
+        order_insertion_by = ['title']
+
     def __str__(self):
-        return self.title
+        full_path = [self.title]
+        k = self.parent
+        while k is not None:
+            full_path.append(k.title)
+            k = k.parent
+        return ' ->'.join(full_path[::-1])
 
     def image_tag(self):
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
@@ -72,7 +87,7 @@ class Transfer(models.Model):
     image_tag.short_description = 'Image'
 
     def get_absolute_url(self):
-        return reverse('Transfer_detail', kwargs={'slug': self.slug})
+        return reverse('category_detail', kwargs={'slug': self.slug})
 
 
 class Images(models.Model):
@@ -88,6 +103,9 @@ class Images(models.Model):
 
     image_tag.short_description = 'Image'
 
+    def get_absolute_url(self):
+        return reverse('category_detail', kwargs={'slug': self.slug})
+
 
 class Comment(models.Model):
     STATUS = (
@@ -96,7 +114,7 @@ class Comment(models.Model):
         ('False', 'False'),
     )
     transfer = models.ForeignKey(Transfer, on_delete=models.CASCADE)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(max_length=50, blank=True)
     comment = models.TextField(max_length=200, blank=True)
     status = models.CharField(max_length=10, choices=STATUS, default='New')

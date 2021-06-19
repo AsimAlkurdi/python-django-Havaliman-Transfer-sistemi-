@@ -42,14 +42,14 @@
             <div class="container">
                 <div class="row">
                     <!--== Logo Start ==-->
-                   <div class="col-lg-4">
+                    <div class="col-lg-4">
                         <a href="/" class="logo">
                             <img src="{% static 'img/logo.png' %}" alt="JSOFT">
                         </a>
                     </div>
                     <!--== Logo End ==-->
 
-                     <!--== Main Menu Start ==-->
+                    <!--== Main Menu Start ==-->
                     <div class="col-lg-8 d-none d-xl-block">
                         <nav class="mainmenu alignright">
                             <ul>
@@ -62,7 +62,7 @@
 
                                                     {% if not node.is_leaf_node %}
                                                     <ul>
-                                                        <li><a href="#">{{ children }}</a></li>
+                                                        <li><a href="elements.html">{{ children }}</a></li>
 
                                                     </ul>
                                                     {% endif %}
@@ -73,12 +73,9 @@
                                 <li><a href="/">Home</a></li>
                                 <li><a href="/aboutus">About</a></li>
                                 <li><a href="/references">Reference</a></li>
-                                <li><a href="#">FAQ</a></li>
+                                <li><a href="/sss">FAQ</a></li>
                                 <li><a href="/contact">Contact</a></li>
-
-
-
-                                 {% if user.id is not None %}
+                                {% if user.id is not None %}
                                 <li><a href="/user">{{ user.first_name }}</a>
                                     <ul>
                                         <li><a href="/user">My Profile</a></li>
@@ -91,7 +88,6 @@
                                 <li><a href="/login/">Login</a></li>
                                 <li><a href="/signup/">Sign Up </a></li>
                                 {% endif %}
-
                             </ul>
                         </nav>
                     </div>
@@ -101,5 +97,4 @@
         </div>
         <!--== Header Bottom End ==-->
     </header>
-    <!--== Header Area End ==-->
     <!--== Header Area End ==-->

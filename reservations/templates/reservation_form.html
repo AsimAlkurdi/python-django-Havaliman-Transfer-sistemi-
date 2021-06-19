@@ -1,0 +1,99 @@
+{% extends "homebase.html" %}
+{% load static %}
+{% block title %} Reservation-{{ setting.company }}{% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description}} {% endblock %}
+{% block head %}
+<link rel='shortcut icon' type='image/x-icon' href='{{setting.icon.url}}' />
+{% endblock %}
+{% block body %}
+<section id="page-title-area" class="section-padding overlay">
+    <div class="container">
+        <div class="row">
+            <!-- Page Title Start -->
+            <div class="col-lg-12">
+                <div class="section-title  text-center">
+                    <h2>Reservation</h2>
+                    <span class="title-line"><i class="fa fa-car"></i></span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div>
+            </div>
+            <!-- Page Title End -->
+        </div>
+    </div>
+</section>
+<!--== About Page Content Start ==-->
+            {%if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+<!--== Contact Page Area Start ==-->
+    <div class="contact-page-wrao section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 m-auto">
+                    <div class="contact-form">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="name-input">
+                                        <label>FIRST NAME</label>
+                                        <input type="text" name="first_name" value="{{ user.first_name }}" placeholder="First Name">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="email-input">
+                                        <label>LAST NAME</label>
+                                        <input type="text" name="last_name" value="{{ user.last_name }}" placeholder="Last Name">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="website-input">
+                                        <label>ADDRESS</label>
+                                        <input type="text" name="address" value="{{ profile.address }}" placeholder="address">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="subject-input">
+                                        <label>PHONE</label>
+                                        <input type="text" placeholder="phone" name="phone" value="{{ profile.phone }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="subject-input">
+                                        <label>DATE</label>
+                                        <input type="text" placeholder="date">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="subject-input">
+                                        <label>CITY</label>
+                                        <input type="text" value="{{ profile.city }}" placeholder="City">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-submit">
+                                <button type="submit">Submit Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--== Contact Page Area End ==-->
+<!--== About Page Content End ==-->
+{% endblock %}

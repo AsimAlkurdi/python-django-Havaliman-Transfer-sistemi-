@@ -13,4 +13,3 @@ def index(request):
     context = {'category': category,
                'profile': profile, }
     return render(request, 'user_profile.html', context)
-

@@ -18,9 +18,15 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class TransferAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category', 'image_tag', 'price', 'status']
+    list_display = ['title', 'category', 'image_tag', 'seat', 'price', 'status']
     list_filter = ['status', 'category']
     inlines = [TransferImageInline]
+    readonly_fields = ('image_tag',)
+    prepopulated_fields = {'slug': ('title',)}
+
+
+class ImagesAdmin(admin.ModelAdmin):
+    list_display = ['title', 'transfer', 'image_tag']
     readonly_fields = ('image_tag',)
 
 
@@ -61,17 +67,12 @@ class CategoryAdmin2(DraggableMPTTAdmin):
     related_transfers_cumulative_count.short_description = 'Related transfers (in tree)'
 
 
-class ImagesAdmin(admin.ModelAdmin):
-    list_display = ['title', 'transfer', 'image_tag']
-    readonly_fields = ('image_tag',)
-
-
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['subject', 'comment', 'transfer', 'user', 'status']
     list_filter = ['status']
 
 
+admin.site.register(Comment, CommentAdmin)
 admin.site.register(Category, CategoryAdmin2)
 admin.site.register(Transfer, TransferAdmin)
 admin.site.register(Images, ImagesAdmin)
-admin.site.register(Comment,CommentAdmin)

@@ -74,10 +74,10 @@ var getYTPVideoID = function( url ) {
 			 * Mask:
 			 * Accept an object with the time as key and the path of the png mask as value
 			 mask:{
-                0:'static/mask-1.png',
-                5:'static/mask-2.png',
+                0:'assets/mask-1.png',
+                5:'assets/mask-2.png',
                 30: false,
-                50:'static/mask-3.png'
+                50:'assets/mask-3.png'
             }
 
 			 */
