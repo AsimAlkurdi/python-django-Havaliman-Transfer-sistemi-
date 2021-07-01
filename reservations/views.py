@@ -3,14 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
+# Create your views here.
 from home.models import UserProfile
 from reservations.models import ReservCart, ReservationForm, Reservation, reservTransfer
-from transfer.models import Category, Transfer, Images
+from transfer.models import Category
 
 
-# Create your views here.
-def index(request):
-    return HttpResponse("resavasi page")
+def index(requests):
+    return HttpResponse("Reservations index")
 
 
 @login_required(login_url='/login')

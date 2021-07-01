@@ -4,10 +4,10 @@ from django.db import models
 
 # Create your models here.
 from django.forms import ModelForm
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
-from django.urls import reverse
 
 
 class Category(MPTTModel):
@@ -41,6 +41,9 @@ class Category(MPTTModel):
 
     image_tag.short_description = 'Image'
 
+    def get_absolute_url(self):
+        return reverse('category_detail', kwargs={'slug': self.slug})
+
 
 class Transfer(models.Model):
     STATUS = (
@@ -70,16 +73,8 @@ class Transfer(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
-    class MPTTMeta:
-        order_insertion_by = ['title']
-
     def __str__(self):
-        full_path = [self.title]
-        k = self.parent
-        while k is not None:
-            full_path.append(k.title)
-            k = k.parent
-        return ' ->'.join(full_path[::-1])
+        return self.title
 
     def image_tag(self):
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
@@ -102,9 +97,6 @@ class Images(models.Model):
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
 
     image_tag.short_description = 'Image'
-
-    def get_absolute_url(self):
-        return reverse('category_detail', kwargs={'slug': self.slug})
 
 
 class Comment(models.Model):

@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from home.form import SignUpForm
-from home.models import Setting, ContactformMessage, ContactForm, UserProfile
+from home.models import Setting, ContactformMessage, ContactForm, UserProfile, FAQ
 from transfer.models import Category, Transfer, Images, Comment
 
 
@@ -19,16 +19,18 @@ def index(request):
 
 
 def aboutus(request):
-    setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
-    context = {'setting': setting, 'category': category, }
-    return render(request, 'aboutus.html/', context)
+    setting = Setting.objects.get(pk=1)
+    context = {'setting': setting,
+               'category': category, }
+    return render(request, 'aboutus.html', context)
 
 
 def references(request):
-    setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
-    context = {'setting': setting, 'category': category}
+    setting = Setting.objects.get(pk=1)
+    context = {'setting': setting,
+               'category': category, }
     return render(request, 'references.html', context)
 
 
@@ -49,7 +51,7 @@ def contact(request):
     category = Category.objects.all()
     form = ContactForm()
     context = {'setting': setting, 'form': form,
-               'category': category}
+               'category': category, }
     return render(request, 'contact.html', context)
 
 
@@ -64,11 +66,13 @@ def category_transfer(request, id, slug):
 
 
 def transfer_detail(request, id, slug):
+    current_user = request.user
     category = Category.objects.all()
+    profile = UserProfile.objects.get(user_id=current_user.id)
     images = Images.objects.filter(transfer_id=id)
     transfer = Transfer.objects.get(pk=id)
     comments = Comment.objects.filter(transfer_id=id, status='True')
-    context = {'category': category, 'transfer': transfer, 'images': images, 'comments': comments}
+    context = {'category': category, 'transfer': transfer, 'images': images, 'comments': comments, 'profile': profile}
     return render(request, 'transfer_detail.html', context)
 
 
@@ -117,3 +121,13 @@ def signup_view(request):
                'form': form,
                }
     return render(request, 'signup.html', context)
+
+
+def sss(request):
+    category = Category.objects.all()
+    faq = FAQ.objects.all().order_by('ordernumber')
+    context = {
+        'category': category,
+        'faq': faq
+    }
+    return render(request, 'faq_page.html', context)

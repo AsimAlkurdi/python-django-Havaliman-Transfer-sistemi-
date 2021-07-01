@@ -10,24 +10,26 @@ from transfer.models import Transfer
 class Reservation(models.Model):
     STATUS = (
         ('New', 'New'),
+        ('Pending', 'Pending'),
         ('Accepted', 'Accepted'),
         ('Canceled', 'Canceled'),
     )
 
-    user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     first_name = models.CharField(max_length=15)
     last_name = models.CharField(max_length=15)
-    phone = models.CharField(max_length=20)
-    address = models.CharField(max_length=155)
-    city = models.CharField(max_length=30)
-    pickup = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20, blank=True)
+    address = models.CharField(max_length=155, blank=True)
+    city = models.CharField(max_length=30, blank=True)
+    pickup = models.CharField(max_length=20, blank=True)
     status = models.CharField(max_length=10, choices=STATUS, default='New')
-    image = models.ImageField(blank=True, upload_to='images/')
+    ip = models.CharField(max_length=20, blank=True)
+    adminnote = models.CharField(blank=True, max_length=150)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user.first_name
+        return self.first_name
 
 
 class reservTransfer(models.Model):
@@ -53,7 +55,7 @@ class ReservCart(models.Model):
     transfer = models.ForeignKey(Transfer, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return self.transfer
+        return str(self.transfer)
 
 
 class ReservationForm(ModelForm):

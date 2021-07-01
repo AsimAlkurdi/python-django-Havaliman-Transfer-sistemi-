@@ -1,6 +1,6 @@
 {% extends "homebase.html" %}
 
-{% block title %} User Profile{{ profile.user_name }}{% endblock %}
+{% block title %} User Profile{{ setting.company }}{% endblock %}
 {% block keywords %} {{ setting.keywords }} {% endblock %}
 {% block description %} {{ setting.description}} {% endblock %}
 {% block head %}
@@ -51,7 +51,7 @@
                                 <div class="about-btn"><a href="/user/password">Change Password</a></div>
                                 </div>
                             </th>
-                            <td style="border-bottom: 1px solid #ddd;"><img width=150 height=150; src="{{ profile.image.url }}" alt=""></td>
+                            <td style="border-bottom: 1px solid #ddd;"><img width=150 height=150; src="{{ profile.image.url }}"></td>
                         </tr>
                         <tr>
                             <th style="border-bottom: 1px solid #ddd;">Name Surname</th>
@@ -83,7 +83,45 @@
                 </div>
                 <!-- Car List Content End -->
 
+                <!-- Sidebar Area Start -->
+                <div class="col-lg-4">
+                    <div class="sidebar-content-wrap m-t-50">
+                        <div class="single-sidebar">
+                            <h3>User Panel</h3>
 
+                            <div class="sidebar-body">
+                                <ul class="recent-tips">
+                                    <li class="single-recent-tips">
+                                        <div class="recent-tip-body">
+                                            <h4><a href="#">My profile</a></h4>
+                                        </div>
+                                    </li>
+                                    <li class="single-recent-tips">
+                                        <div class="recent-tip-body">
+                                            <h4><a href="/reservcart">Reservations Cart</a></h4>
+                                        </div>
+                                    </li>
+                                    <li class="single-recent-tips">
+                                        <div class="recent-tip-body">
+                                            <h4><a href="/user/comments">MY comment</a></h4>
+                                        </div>
+                                    </li>
+                                    <li class="single-recent-tips">
+                                        <div class="recent-tip-body">
+                                            <h4><a href="#">MY Transfers</a></h4>
+                                        </div>
+                                    </li>
+                                    <li class="single-recent-tips">
+                                        <div class="recent-tip-body">
+                                            <h4><a href="/logout">Log out</a></h4>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar Area End -->
             </div>
         </div>
     </section>

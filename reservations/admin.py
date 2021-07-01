@@ -1,18 +1,18 @@
 from django.contrib import admin
 
 # Register your models here.
-from reservations.models import Reservation, reservTransfer, ReservCart
+
+from reservations.models import ReservCart, Reservation, reservTransfer
 
 
 class ReservationCartAdmin(admin.ModelAdmin):
-    list_display = ['user', 'transfer', ]
+    list_display = ['user', 'transfer',]
     list_filter = ['user']
 
 
 class ReservationAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name', 'phone', 'city', 'status', 'pickup']
     list_filter = ['status']
-    readonly_fields = ('user', 'address', 'city', 'first_name', 'last_name', 'phone', 'status', 'pickup')
 
 
 class ReservationTransferAdmin(admin.ModelAdmin):
